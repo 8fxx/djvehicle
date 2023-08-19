@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<script>
+    window.onload = function () {
+
+        var chart1 = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true, // change to false
+            title:{
+                text: ""
+            },
+            data: [{
+                type: "stackedColumn",
+		        showInLegend: true,
+		        color: "#18A647",
+		        name: "Running",
+                dataPoints: {{ data_points_running | safe }}
+            },{
+                
+                type: "stackedColumn",
+		        showInLegend: true,
+		        color: "#FF5733",
+		        name: "Grounded",
+                dataPoints: {{ data_points_grounded | safe }}
+            }]
+        });
+        
+        var chart2 = new CanvasJS.Chart("pieContainer", {
+            animationEnabled: true, // change to false
+            title:{
+                text: ""
+            },
+            data: [{
+                type: "pie",
+		        showInLegend: false,
+		        toolTipContent: "{label}: {y}",
+		        indexLabel: "{label} - {y}",
+                dataPoints: {{ data_points | safe }}
+            }]
+        });
+        chart1.render();
+        chart2.render();
+
+        
+    }
+</script>
+<div class="container">
+    <br>
+    <h1 class="text-center">Fleet Count</h1>
+<div id="chartContainer" style="width: 100%; height: 360px;"></div>
+</div>
+
+<div class="container mt-3">
+    <br>
+<div id="pieContainer" style="width: 100%; height: 360px;"></div>
+</div>
+
+
+{% endblock %}

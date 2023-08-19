@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+
+
+
+
+<br>
+<div class="container ">
+
+    <h1>Confirm Delete {{ status.update }} ?</h1>
+
+<form method="POST" enctype=”multipart/form-data” class="text-white">
+    <fieldset>            
+            {% csrf_token %}
+            <div class="text-center">
+            <a href="{% url 'detail' pk=status.vehicle.id %}"><input type="submit" value="Submit" class="text-white btn btn-outline-danger btn-sm mt-auto"></a>
+            </div>
+            
+        </fieldset>
+
+        </form>
+    </div>
+
+
+
+{% endblock %}

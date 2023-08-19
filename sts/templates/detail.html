@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 align-self-center ">
+      
+      <img class="img-fluid " src="https://www.usnews.com/object/image/00000182-a53e-dc41-a1db-a57ffa320000/01_2022_Hyundai_Palisade.jpg?update-time=&size=responsive640" alt="..."/>
+    </div>
+    <div class="col-sm-8 mt-3">
+    <table class="table table-sm text-white">
+      <thead>
+        <h1 class="text-center text-white">{{ vehicle.name }}</h1>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Brand</th>
+            <td>{{ vehicle.brand }}</td>
+            <th scope="row">Model</th>
+            <td>{{ vehicle.model }}</td>           
+          </tr>
+          <tr>
+            <th scope="row">Inventory Number</th>
+            <td>{{ vehicle.inventorynumber }}</td>
+            <th scope="row">Type</th>
+            <td>{{ vehicle.type }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Transmission</th>
+            <td>{{ vehicle.transmission }}</td>
+            <th scope="row">Engine Type</th>
+            <td>{{ vehicle.enginetype }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Price</th>
+            <td>{{ vehicle.price }}</td>
+            <th scope="row">Engine Number</th>
+            <td>{{ vehicle.enginenumber }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Tonage</th>
+            <td>{{ vehicle.tonage }}</td>
+            <th scope="row">Fuel Capacity</th>
+            <td>{{ vehicle.fuelcapacity}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Engine CC</th>
+            <td>{{ vehicle.enginecc }}</td>
+            <th scope="row">Capacity</th>
+            <td>{{ vehicle.capacity}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Location</th>
+            <td>{{ vehicle.lastlocation }}</td>
+            <th>
+              Status
+            </th>
+            <td>
+              {% if vehicle.laststatus == 'Running' %}
+              <div class="badge bg-success text-white" style="top: 0.5rem; right: 0.5rem">Running</div>
+                {% elif vehicle.laststatus == 'Grounded' %}
+                <div class="badge bg-warning text-white" style="top: 0.5rem; right: 0.5rem">Grounded</div>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Unit</th>
+            <td>{{vehicle.issuedtounit}}</td>
+            
+          </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+  <div class="col text-white ">
+<p>{{ vehicle.photo }}</p>
+                   <p class="fw-lighter">Added on {{ vehicle.createddate }} by {{ vehicle.createdby }}</p>
+                  </div>
+<div class="col mb-5 col-auto">
+ <a href="{% url 'updatevehicle' pk=vehicle.id %}" class="btn btn-primary btn-sm m-2">Edit Vehicle</a>
+<a href="{% url 'deletevehicle' pk=vehicle.id %}" class="btn btn-primary btn-sm">Delete Vehicle</a>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="container text-center">
+  <hr>
+<div class="row">
+<div class="col-sm-8">
+  {% if vehicle.status.all %}
+  <h3 class="text-white">Status for updates for {{ vehicle.name }}</h3>
+ {% else %}
+   <h3 class="text-white">No Status update found.</h3>
+ {% endif %}
+ </div>
+ <div class="col-sm-4">
+  <a href="{% url 'createstatus' pk=vehicle.id %}" class="btn btn-primary btn-sm">Add Status</a>
+ </div>
+ 
+</div>
+</div>
+</div>
+
+
+
+
+    {% for status in vehicle.status.all reversed %}
+    <br>
+    <div class="container">
+      <div class="card ">
+        {% if status.type == 'Maintenance' %}
+        <div class="card-header bg-info p-2 text-dark bg-opacity-25">
+          
+        {% elif status.type == 'Allotment' %}
+        <div class="card-header bg-success p-2 text-dark bg-opacity-25">
+          
+        {% endif %}
+        {{ status.type}}
+      </div>
+
+        <div class="card-body">
+          <p class="card-subtitle mb-2 text-muted">Status Date: {{status.createddate}}</p>
+          <p class="card-text">Remarks: {{status.remarks}} <br> Update: {{status.update}} <br>
+            Command/Corps/Unit: {{status.allotmentunit}} <br>Location: {{status.allotmentlocation}}
+          </p>
+          {%  if status.statusapproved %}
+          <p>approved</p>
+          <a href="{% url 'updatestatus' pk=status.id %}" class="btn btn-primary btn-sm">Edit</a>
+          <a href="{% url 'deletestatus' pk=status.id %}" class="btn btn-primary btn-sm">Delete</a>
+          {% else %}
+          <a href="{% url 'approvestatus' pk=status.id %}" class="btn btn-primary btn-sm">Approve</a>
+          {% endif %} 
+        </div>
+      </div>
+    </div>
+    <br>
+    {% endfor %}
+
+
+{% endblock %}
+

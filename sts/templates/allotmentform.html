@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% extends 'navbar.html' %}
+{% block body_block %}
+
+
+{% if not form.instance.pk %}
+<h1>Add Allotment</h1>
+
+{% else %}
+
+<h1>Update Allotment</h1>
+{% endif %}
+
+<form method="POST" >
+            {{form.as_p}}
+            {% csrf_token %}
+            <input type="submit" value="Submit">
+        </form>
+
+
+{% endblock %}

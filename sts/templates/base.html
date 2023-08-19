@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMS | FLeet Management System</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/canvasjs.min.js' %}"></script>
+</head>
+<body class="bg bg-dark bg-gradient vh-100 ">
+ 
+{%if user.get_username%}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'Index' %}">FMS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav me-auto">
+
+          
+
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'chart' %}">Chart View
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'createvehicle' %}">Add Vehicle
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+
+         
+        
+       
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Brand</a>
+            <div class="dropdown-menu">
+          {% for b in brandss %}
+          <a href="/brand/{{b.id}}"  class="dropdown-item">{{b.brand_name}}</a>
+          {% endfor %}
+          
+
+
+          
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Units</a>
+        <div class="dropdown-menu">
+      {% for b in units %}
+        <a href="/unit/{{b.id}}" class="dropdown-item">{{b.unit_name}}</a>
+      {% endfor %}
+        </div>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Type</a>
+      <div class="dropdown-menu">
+    {% for b in types %}
+      <a href="/type/{{b.id}}" class="dropdown-item">{{b.brand_name}}</a>
+    {% endfor %}
+      </div>
+  </li>
+       
+
+
+
+          <form method ='POST' action="{% url 'Index' %}" class="d-flex">{% csrf_token %}
+            <input class="form-control-sm mb-2" type="search" placeholder="Search" name='searched'>
+            <button class="btn btn-secondary my-sm-0 invisible" type="submit">Search</button> 
+          </form>
+          
+          
+        </ul>
+        
+        <a href="{% url 'logout' %}" class=""><button class="btn btn-secondary btn-sm my-2 my-sm-0" type="submit">Logout</button> </a>
+      </div>
+    </div>
+  </nav>
+  
+    
+{% endif %}
+
+
+
+
+    {% block body_block %}
+    {% endblock %}
+     
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+
+</body>
+</html>

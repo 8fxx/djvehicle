@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+{{vehicle.name}}
+<h1>COnfirm Delete {{ allotment.location }}?</h1>
+<p>{{ allotment.remarks }}</p>
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="delete">
+    <a href="{% url 'detail' pk=allotment.id %}"> Cancel</a>
+</form>
+
+
+
+
+
+{% endblock %}

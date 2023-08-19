@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<div class="container text-center mt-5">
+  <h1>Fleet Management System</h1>
+  <h3>Login</h3>
+</div>
+
+<div class="containter">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+<div class="form-group text-center">
+  <form method="POST" class="">
+    {% csrf_token %}
+  <fieldset>
+    <label for=""></label>
+    <input type="text" placeholder="Username" name="username" class="form-control">
+    <label for=""></label>
+    <input type="password" placeholder="Password" name="password" class="form-control"><br>
+    <input type="submit" value="login" class="btn btn-outline-dark btn-sm mt-auto text-white">
+  </fieldset>
+</form>
+</div>
+</div>
+
+<div class="col-sm"></div>
+
+</div>
+</div>
+</div>
+{% endblock %}

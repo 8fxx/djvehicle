@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+
+<br>
+<div class="container">
+    {% if not form.instance.pk %}
+<h1>Add Vehicle</h1>
+
+{% else %}
+
+<h1 class="">Update Vehicle</h1><br>
+{% endif %}
+    
+<form method="POST" enctype=”multipart/form-data” class="text-white">
+    <fieldset>            
+        {{form.as_p}}
+            {% csrf_token %}
+            <input type="submit" value="Submit" class="btn btn-outline-light btn-sm mt-auto">
+        </fieldset>
+
+        </form>
+    </div>
+
+
+
+        
+{% endblock %}

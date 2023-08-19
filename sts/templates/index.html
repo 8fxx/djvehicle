@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<br>
+
+{% if vehicle_list %}
+<div class="text-center ">
+<h4 class="text-white">TOTAL VEHICLES {{ vehicle_list.count }}</h4>
+<h6 class="text-white">Running {{ running.count }}</h6>
+<h6 class="text-white">Grounded {{ grounded.count }}</h6>
+</div>
+{% else %}
+<br>
+<div class="text-center">
+<h4>No vehicles founds</h4>
+</div>
+{% endif %}
+<section>
+   <div class="container px-4 px-lg-5 mt-3">
+       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center ">
+           
+
+         {% for vehicle in vehicle_list %}
+           <div class="col mb-5" >
+               <div class="card h-100 bg-light bg-opacity-80">
+                   <!--  badge-->
+                     {% if vehicle.laststatus == 'Running' %}
+                   <div class="badge bg-success text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Running</div>
+                     {% elif vehicle.laststatus == 'Grounded' %}
+                     <div class="badge bg-warning text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Grounded</div>
+                   {% endif %}
+                     <!--  image-->
+                   <img class="card-img-top img-responsive" src="https://www.usnews.com/object/image/00000182-a53e-dc41-a1db-a57ffa320000/01_2022_Hyundai_Palisade.jpg?update-time=&size=responsive640" alt="..."/>
+                   <!--  details-->
+                   <div class="card-body p-4">
+                       <div class="text-center">
+                           <!--  name-->
+                           <h5 class="fw-bolder">{{vehicle.name}}</h5>
+                           <!--  -->
+                           <span class="text-muted">{{ vehicle.brand }}<br></span>
+                           {{vehicle.lastlocation}} <br>
+                           {{vehicle.issuedtounit}}
+                       </div>
+                   </div>
+                   <!--  actions-->
+                   <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                       <div class="text-center"><a class="btn btn-outline-dark btn-sm mt-auto" href="/{{vehicle.id}}">View</a></div>
+                   </div>
+               </div>
+           </div>
+           {% endfor %}
+  
+           
+           
+           
+          
+           
+
+       </div>
+   </div>
+</section>
+
+</div>
+
+{% endblock %}
